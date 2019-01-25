@@ -7,7 +7,7 @@ const Header = (props) => {
   return (
     <header>
       <div className="Icon">
-        <img src={Icon} />
+        <img src={Icon} alt="Header" />
         <h1>Shelfie</h1>
       </div>
       <div className="UserOptions">

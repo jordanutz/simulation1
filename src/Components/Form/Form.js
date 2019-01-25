@@ -93,7 +93,7 @@ class Form extends Component {
 
 
     const displayPhoto = this.state.image ?
-    <img id="DisplayPhoto" src={this.state.image} />
+    <img id="DisplayPhoto" src={this.state.image} alt="Product" />
     : 'Please insert a photo!'
 
     return (

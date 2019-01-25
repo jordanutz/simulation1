@@ -7,12 +7,8 @@ class Dashboard extends Component {
   constructor () {
     super()
     this.state = {
-      editName: '',
-      editPrice: '',
-      editImage: '',
       inventory: []
     }
-    this.handleEditName = this.handleEditName.bind(this)
   }
 
   componentDidMount () {
@@ -27,36 +23,15 @@ class Dashboard extends Component {
     })
   }
 
-  handleEditName (event) {
-    this.setState({
-      editName: event.target.value
-    })
-  }
-
-  handleEditPrice =(event) => {
-    this.setState({
-      editPrice: event.target.value
-    })
-  }
-
-  handleEditImage = (event) => {
-    this.setState({
-      editImage: event.target.value
-    })
-  }
-
   editProduct = (id, name, price, image) => {
-
     const inventory = {
       name: name,
-      price, price,
+      price: price,
       image: image
     }
-
     axios.put(`/api/inventory${id}`, inventory).then(res => {
       console.log(res)
     })
-
   }
 
   deleteProduct = (id) => {
@@ -71,12 +46,11 @@ class Dashboard extends Component {
 
   render () {
 
-    const {handleEditName, handleEditPrice, handleEditImage, editProduct, deleteProduct} = this
-    const {editName, editPrice, editImage} = this.state
+    const {editProduct, deleteProduct} = this
 
     const displayedProducts = this.state.inventory.map( (product, index) => {
       return <Product
-        key={index}
+        key={product.product_id}
         {...product}
         editProduct={editProduct}
         deleteProduct={deleteProduct}

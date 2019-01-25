@@ -4,22 +4,22 @@ import {Link} from 'react-router-dom'
 
 const Product = (props) => {
 
-  const {product_id, product_name, price, image_url} = props
+  const {product_id, product_name, price, image_url, deleteProduct} = props
 
   return (
     <div className="Product">
       <div className="ProductPhoto">
-        <img src={props.image_url} />
+        <img src={image_url} alt="Product" />
       </div>
       <div className="Display">
         <div className="ProductInformation">
-          <h1>{props.product_name}</h1>
-          <h2>Price: {props.price}</h2>
+          <h1>{product_name}</h1>
+          <h2>Price: {price}</h2>
         </div>
         <div className="ProductOptions">
 
           <Link to={`/edit/${product_id}`}><button>Edit</button></Link>
-          <button onClick={() => props.deleteProduct(product_id)}>Delete</button>
+          <button onClick={() => deleteProduct(product_id)}>Delete</button>
         </div>
       </div>
     </div>
