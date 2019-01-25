@@ -9,7 +9,18 @@ class Form extends Component {
       name: '',
       price: '',
       image: '',
+      product: {}
     }
+  }
+
+
+  componentDidMount () {
+    axios.get(`/api/inventory/${this.props.match.params.id}`).then(res => {
+      console.log(res.data)
+      this.setState({
+        product: res.data[0]
+      })
+    })
   }
 
   inputName = (event) => {
@@ -31,13 +42,11 @@ class Form extends Component {
   }
 
   submitProduct = (name, price, image) => {
-
     const product = {
       name: name,
       price: price,
       image: image
     }
-
     axios.post('/api/inventory', product).then( res => {
     })
     this.goBack()
@@ -61,7 +70,7 @@ class Form extends Component {
       image: image
     }
 
-    axios.put(`/api/inventory${id}`, editProduct).then(res => {
+    axios.put(`/api/inventory/${id}`, editProduct).then(res => {
       console.log(res)
     })
     this.goBack()
@@ -76,6 +85,7 @@ class Form extends Component {
 
     const {name, price, image} = this.state
     const {inputPrice, inputName, inputImage, resetForm, submitProduct, submitEdit} = this
+    console.log(this.state.product)
 
     const submitButton = this.props.match.path === '/add' ?
     <button onClick={() => submitProduct(name, price, image)}>Add to Inventory</button> :
@@ -91,9 +101,9 @@ class Form extends Component {
         <h1>Product Input</h1>
         {displayPhoto}
         <div className="FormInput">
-          <h2>Image URL:</h2><input value={image} onChange={inputImage} />
-          <h2>Name:</h2><input value={name} onChange={inputName}/>
-          <h2>Price:</h2><input value={price} onChange={inputPrice}/>
+          <h2>Image URL:</h2><input placeholder={this.state.product.image_url} value={image} onChange={inputImage} />
+          <h2>Name:</h2><input placeholder={this.state.product.product_name} value={name} onChange={inputName}/>
+          <h2>Price:</h2><input placeholder={this.state.product.price} value={price} onChange={inputPrice}/>
         </div>
         <div className="FormOptions">
           <button onClick={() => resetForm()}>Cancel</button>

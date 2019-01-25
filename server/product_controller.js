@@ -7,7 +7,6 @@ module.exports = {
     .catch(error => console.log(error))
   },
   getProducts: (req, res) => {
-    console.log('hit')
     const db = req.app.get('db')
     db.get_products()
     .then(products => res.status(200).send(products))
@@ -15,7 +14,6 @@ module.exports = {
   },
   deleteProduct: (req, res) => {
     const {id} = req.params
-    console.log(id)
     const db = req.app.get('db')
     db.delete_product(id)
     .then(products => res.status(200).send(products))
@@ -29,5 +27,11 @@ module.exports = {
     db.edit_product([id, name, price, image])
     .then(products => res.status(200).send(products))
     .catch(error => console.log(error))
+  },
+  getProduct: (req, res) => {
+    const db = req.app.get('db')
+    const {id} = req.params
+    console.log(id)
+    db.get_product(id).then(product => res.status(200).send(product))
   }
 }

@@ -62,7 +62,7 @@ class Dashboard extends Component {
   deleteProduct = (id) => {
     console.log(id)
     console.log('delete product hit')
-    axios.delete(`/api/inventory${id}`).then(res => {
+    axios.delete(`/api/inventory/${id}`).then(res => {
       this.setState({
         inventory: res.data
       })
